@@ -6,13 +6,15 @@
   max-width: 685px;
 }
 
-.SearchForm{
+.Nav {
   display: inline;
-  margin: 1%;
 }
 
-.ResultList li:hover {
-  background-color: yellow;
-  font-family: DejavuSansBoldItalic;
-  cursor: pointer;
+.NavList {
+  display: inline;
+}
+
+.NavList li {
+  display: inline;
+  margin: 0 2%;
 }
