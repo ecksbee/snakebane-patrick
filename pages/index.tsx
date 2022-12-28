@@ -24,7 +24,7 @@ export default function Home() {
   return <div>
     <h1 className={styles.Brand}>
                 <img src={logo.src} style={{verticalAlign: 'bottom'}} alt="ECKSBEE Logo" width={64.1} height={49.5} />
-                <a href="https://ecksbee.com" target="_blank">ECKSBEE</a> - EDGAR Browser
+                <a href="https://ecksbee.com" target="_blank">ECKSBEE</a> - EDGARBrowser
     </h1>
     <form className={styles.SearchForm} ref={refform} >
       <label htmlFor="form-type">Select form type:</label>

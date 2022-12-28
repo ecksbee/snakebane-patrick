@@ -5,7 +5,7 @@ import Head from 'next/head'
 export default function App({ Component, pageProps }: AppProps) {
   return <>
     <Head>
-      <title>{`EDGAR Browser | ECKSBEE`}</title>
+      <title>{`EDGARBrowser | ECKSBEE`}</title>
     </Head>
     <Component {...pageProps} />
   </>
