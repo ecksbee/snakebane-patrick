@@ -1,0 +1,19 @@
+.cookie {
+    padding: 5%;
+    color: white;
+    background-color: rgb(27, 27, 27);
+    z-index: 1000;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 16pt;
+}
+.btnCookie {
+    border-radius: 5%;
+    padding: 1%;
+    background-color: #0070f3;
+    color: white;
+    font-size: 16pt;
+    text-decoration: none;
+    cursor: pointer;
+}
