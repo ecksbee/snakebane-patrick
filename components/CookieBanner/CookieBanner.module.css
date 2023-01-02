@@ -8,6 +8,10 @@
     right: 0;
     font-size: 16pt;
 }
+.cookie a {
+    color: white;
+    background-color: rgb(27, 27, 27);
+}
 .btnCookie {
     border-radius: 5%;
     padding: 1%;

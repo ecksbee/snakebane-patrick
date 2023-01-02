@@ -11,10 +11,6 @@ const CookieBanner = (): JSX.Element | null => {
         const consentTime: number = consentValue
             ? +consentValue
             : Date.now() - sevenDays - 1000
-            console.log('consentTime')
-        console.log(consentTime)
-        console.log('Date.now')
-        console.log(Date.now())
         const diff = (Date.now() - consentTime)
         setComputed((diff > sevenDays))
     }, [])
