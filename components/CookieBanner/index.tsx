@@ -6,13 +6,13 @@ const CookieBanner = (): JSX.Element | null => {
     const [understood, setUnderstood] = React.useState(false)
     const [computed, setComputed] = React.useState(false)
     React.useEffect(() => {
-        const sevenDays = 7 * 24 * 60 * 60 * 1000
+        const sixyMinutes = 60 * 60 * 1000
         const consentValue = window.localStorage.getItem(consentKey)
         const consentTime: number = consentValue
             ? +consentValue
-            : Date.now() - sevenDays - 1000
+            : Date.now() - sixyMinutes - 1000
         const diff = (Date.now() - consentTime)
-        setComputed((diff > sevenDays))
+        setComputed((diff > sixyMinutes))
     }, [])
     if (understood) {
       return null
