@@ -3,7 +3,12 @@ import Router from 'next/router'
 import logo from '../public/logo.jpg'
 import styles from '../styles/Home.module.css'
 
+const currentYear = (new Date()).getFullYear()
+const range = (start: number, stop: number, step: number) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step))
+const myXBRLYears = range(2016, currentYear, 1)
+
 export default function Home() {
+  const [year, setYear] = React.useState(`${currentYear}`)
   const [formType, setFormtype] = React.useState('8-k')
   const [search, setSearch] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
@@ -19,7 +24,7 @@ export default function Home() {
     }).then(res => res.json())
     .then(data => setResults(data?.Results || []))
     .finally(() => setIsLoading(false))
-  }, [formType, search])
+  }, [formType, search, year])
   const refform = React.createRef<HTMLFormElement>()
   return <div>
     <h1 className={styles.Brand}>
@@ -33,6 +38,14 @@ export default function Home() {
         <option value="10-k">10-K</option>
         <option value="10-q">10-Q</option>
         <option value="485bpos">485BPOS</option>
+      </select>
+      <label htmlFor="year">Select filing year:</label>
+      <select name="year" id="year" defaultValue={currentYear} onChange={e => setYear(e.currentTarget.value)}>
+        {
+          myXBRLYears.map(
+            i => <option key={i} value={i}>{i}</option>
+          )
+        }
       </select>
       <label htmlFor="company-name">Search company:</label>
       <input type="text" id="company-name" name="company-name" onChange={e => setSearch(e.currentTarget.value)}/>
