@@ -1,5 +1,14 @@
-.copyright {
-  position: relative;
+.footer {
+  position: fixed;
+  background-color: transparent;
+  width: calc(100vw - 128px);
   bottom: 0;
   left: 0;
+}
+.copyright {
+  margin: 0;
+  color: black;
+  background-color: rgba(255,255,255,.22);
+  padding: 1px;
+  font-size: 9pt;
 }
