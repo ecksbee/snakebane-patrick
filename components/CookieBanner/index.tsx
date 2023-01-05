@@ -24,7 +24,7 @@ const CookieBanner = (): JSX.Element | null => {
             Our website uses cookies. By continuing to use our website, you are
             granting us permission to deploy our cookies as detailed in our{" "}
             <a href='https://ecksbee.com/privacy'>privacy</a> and{" "}
-            <a href='https://ecksbee.com/cookie'>cookie</a> policy.
+            <a href='https://ecksbee.com/cookies'>cookie</a> policy.
           </p>
           <button
             className={styles.btnCookie}
