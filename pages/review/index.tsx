@@ -19,7 +19,7 @@ export default function Review() {
   }, [path])
   let renderer = null
   if (isLoading) {
-
+    renderer = <div><p>booting up renderer...</p></div>
   } else {
     renderer = id?  <iframe src={`/browser/?id=${id}`} style={{
       position: 'fixed',
@@ -31,7 +31,7 @@ export default function Review() {
     }}
     title="Concept Network Browser, powered by TeleFacts" />
     :
-    <div>An error ocurred.  Please hit the browser's refresh/reload button.</div>
+    <div><p>Unable to render XBRL filing.  The EDGAR filing may not have a well-formed XBRL report.  If there is a well-formed XBRL report, an error may have occurred.  There's a chance that hitting the browser's refresh/reload button to re-render will fix most errors.</p></div>
   }
   return <div>
     <h1 className={styles.Brand}>
