@@ -37,7 +37,7 @@ export default function Home() {
         <option value="8-k">8K</option>
         <option value="10-k">10-K</option>
         <option value="10-q">10-Q</option>
-        <option value="485bpos">485BPOS</option>
+        {/* <option value="485bpos">485BPOS</option> */}
       </select>
       <label htmlFor="year">Select filing year:</label>
       <select name="year" id="year" defaultValue={currentYear} onChange={e => setYear(e.currentTarget.value)}>
