@@ -1,14 +1,40 @@
 .footer {
-  position: fixed;
-  background-color: transparent;
-  width: calc(100vw - 128px);
+  position: relative;
+  height: unset;
+  min-height: 18px;
+  width: 100%;
   bottom: 0;
   left: 0;
+  font-size: 10pt;
+}
+.footerShort {
+  position: relative;
+  min-height: 20px;
+  width: 99%;
+  bottom: 0;
+  left: 0;
+  font-size: 10pt;
+}
+.footerNav {
+  display: flex;
+}
+.footer h2{
+  font-size: 1.2em;
+}
+.footer li{
+  font-size: 1.1em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.footerList {
+  flex: 33%;
 }
 .copyright {
   margin: 0;
   color: black;
   background-color: rgba(255,255,255,.22);
   padding: 1px;
-  font-size: 10pt;
 }
