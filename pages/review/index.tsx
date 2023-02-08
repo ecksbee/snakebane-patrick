@@ -37,7 +37,7 @@ export default function Review() {
   return <>
     <div>
       <h1 className={styles.Brand}>
-                  <img src={logo.src} style={{verticalAlign: 'bottom'}} alt="ECKSBEE Logo" width={64.1} height={49.5} />
+                  <img src={logo.src} style={{verticalAlign: 'bottom'}} alt="man postage stamp" height={47.5} width={34} />
                   EDGARBrowser
       </h1>
       <nav className={styles.Nav}>
