@@ -1,7 +1,7 @@
 import React from 'react'
 import Router from 'next/router'
 import Footer from '../components/Footer'
-import logo from '../public/logo.jpg'
+import logo from '../public/logo.png'
 import styles from '../styles/Home.module.css'
 
 const currentYear = (new Date()).getFullYear()
@@ -30,10 +30,13 @@ export default function Home() {
   return <>
     <div>
       <h1 className={styles.Brand}>
-                  <img src={logo.src} style={{verticalAlign: 'bottom'}} alt="ECKSBEE Logo" width={64.1} height={49.5} />
+                  <img src={logo.src} style={{verticalAlign: 'bottom'}} alt="man postage stamp" height={47.5} width={34} />
                   EDGARBrowser
       </h1>
-      <form className={styles.SearchForm} ref={refform} onSubmit={() => {}}>
+      <form className={styles.SearchForm} ref={refform} onSubmit={e => {
+        e.preventDefault()
+        e.stopPropagation()
+      }}>
         <label htmlFor="form-type">Type:</label>
         <select name="form-type" id="form-type" onChange={e => setFormtype(e.currentTarget.value)}>
           <option value="8-k">8K</option>
