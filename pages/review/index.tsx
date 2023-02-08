@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import Footer from '../../components/Footer'
-import logo from '../../public/logo.jpg'
+import logo from '../../public/logo.png'
 import styles from '../../styles/Review.module.css'
 
 export default function Review() {
