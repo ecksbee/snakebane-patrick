@@ -7,7 +7,13 @@ import styles from '../styles/Home.module.css'
 const currentYear = (new Date()).getFullYear()
 const range = (start: number, stop: number, step: number) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step))
 const myXBRLYears = range(2016, currentYear, 1)
-
+const debounce = (func : Function, timeout = 2000) => {
+  let timer : NodeJS.Timeout
+  return (...args: any) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  }
+}
 export default function Home() {
   const [year, setYear] = React.useState(`${currentYear}`)
   const [formType, setFormtype] = React.useState('8-k')
@@ -15,16 +21,26 @@ export default function Home() {
   const [isLoading, setIsLoading] = React.useState(false)
   const [results, setResults] = React.useState([])
   React.useEffect(() => {
+    const lambda = () => {
+      const formdata = new FormData()
+      formdata.append('form-type', formType)
+      formdata.append('year', year)
+      formdata.append('company-name', search)
+      fetch('/company-search',{
+        method: 'POST',
+        body: formdata
+      }).then(res => res.json())
+      .then(data => setResults(data?.Results || []))
+      .finally(() => {
+        setIsLoading(false)
+      })
+    }
     if (!search) {
+      setResults([])
       return
     }
     setIsLoading(true)
-    fetch('/company-search',{
-      method: 'POST',
-      body: new FormData(refform.current || undefined)
-    }).then(res => res.json())
-    .then(data => setResults(data?.Results || []))
-    .finally(() => setIsLoading(false))
+    debounce(() => lambda())()
   }, [formType, search, year])
   const refform = React.createRef<HTMLFormElement>()
   return <>
