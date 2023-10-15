@@ -27,7 +27,7 @@ export default function Review() {
       left: '0',
       bottom: '0',
       height: 'calc(100vh - 54px - 20px)',
-      width: '100vw',
+      width: '99vw',
       border: 'none'
     }}
     title="Concept Network Browser, powered by TeleFacts" />
@@ -43,7 +43,7 @@ export default function Review() {
       <nav className={styles.Nav}>
         <ul className={styles.NavList}>
           <li><a href={`https://www.sec.gov/${path}`} target="_blank">Go to sec.gov</a></li>
-          <li><a href="/">Start over</a></li>
+          <li><a href="/">Back to search page</a></li>
         </ul>
         </nav>
         { renderer }
