@@ -1,9 +1,17 @@
 import React from 'react'
 import Router from 'next/router'
+import type { GetStaticProps, NextPage } from 'next'
+import path from 'path'
+import fs from 'fs'
+import markdown from '../lib/markdown'
 import Footer from '../components/Footer'
+import MdReader from '../components/MdReader'
 import logo from '../public/logo.png'
 import styles from '../styles/Home.module.css'
 
+type Props = {
+  content: any 
+}
 const currentYear = (new Date()).getFullYear()
 const range = (start: number, stop: number, step: number) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step))
 const myXBRLYears = range(2016, currentYear, 1)
@@ -14,7 +22,7 @@ const debounce = (func : Function, timeout = 2000) => {
     timer = setTimeout(() => { func.apply(this, args); }, timeout);
   }
 }
-export default function Home() {
+const Home: NextPage<Props> = ({content} : Props) => {
   const [year, setYear] = React.useState(`${currentYear}`)
   const [formType, setFormtype] = React.useState('8-k')
   const [search, setSearch] = React.useState('')
@@ -73,7 +81,7 @@ export default function Home() {
       </form>
       <>
         { isLoading && <div>loading...</div> }
-        { !isLoading && !results?.length && <div><p>No results.  Submit search parameters to run a search for XBRL filings in EDGAR.</p></div> }
+        { !isLoading && !results?.length && <div><p>No results.  Submit search parameters to run a search for XBRL filings in EDGAR.</p><hr /><MdReader content={content} /></div> }
         {
           !isLoading && results?.length > 0 && <>
             <div>
@@ -95,3 +103,14 @@ export default function Home() {
     <Footer short={false} />
   </>
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const filePath = path.join(process.cwd(), 'marketecture.md')
+  const content = await markdown(fs.readFileSync(filePath, 'utf8'))
+  return {
+    props: {
+      content 
+    }
+  }
+}
+export default Home
