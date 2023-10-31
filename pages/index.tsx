@@ -15,19 +15,15 @@ type Props = {
 const currentYear = (new Date()).getFullYear()
 const range = (start: number, stop: number, step: number) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step))
 const myXBRLYears = range(2016, currentYear, 1)
-const debounce = (func : Function, timeout = 2000) => {
-  let timer : NodeJS.Timeout
-  return (...args: any) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => { func.apply(this, args); }, timeout);
-  }
-}
 const Home: NextPage<Props> = ({content} : Props) => {
   const [year, setYear] = React.useState(`${currentYear}`)
   const [formType, setFormtype] = React.useState('8-k')
   const [search, setSearch] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
   const [results, setResults] = React.useState([])
+  React.useEffect(() => {
+    setResults([])
+  }, [formType, search, year])
   const submitSearch = () => {
     if (!search || isLoading) {
       return
@@ -36,6 +32,7 @@ const Home: NextPage<Props> = ({content} : Props) => {
     formdata.append('form-type', formType)
     formdata.append('year', year)
     formdata.append('company-name', search)
+    setIsLoading(true)
     fetch('/company-search',{
       method: 'POST',
       body: formdata
