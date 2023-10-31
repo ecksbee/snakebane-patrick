@@ -28,38 +28,33 @@ const Home: NextPage<Props> = ({content} : Props) => {
   const [search, setSearch] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
   const [results, setResults] = React.useState([])
-  React.useEffect(() => {
-    const lambda = () => {
-      const formdata = new FormData()
-      formdata.append('form-type', formType)
-      formdata.append('year', year)
-      formdata.append('company-name', search)
-      fetch('/company-search',{
-        method: 'POST',
-        body: formdata
-      }).then(res => res.json())
-      .then(data => setResults(data?.Results || []))
-      .finally(() => {
-        setIsLoading(false)
-      })
-    }
-    if (!search) {
-      setResults([])
+  const submitSearch = () => {
+    if (!search || isLoading) {
       return
     }
-    setIsLoading(true)
-    debounce(() => lambda())()
-  }, [formType, search, year])
-  const refform = React.createRef<HTMLFormElement>()
+    const formdata = new FormData()
+    formdata.append('form-type', formType)
+    formdata.append('year', year)
+    formdata.append('company-name', search)
+    fetch('/company-search',{
+      method: 'POST',
+      body: formdata
+    }).then(res => res.json())
+    .then(data => setResults(data?.Results || []))
+    .finally(() => {
+      setIsLoading(false)
+    })
+  }
   return <>
     <div>
       <h1 className={styles.Brand}>
                   <img src={logo.src} style={{verticalAlign: 'bottom'}} alt="man postage stamp" height={47.5} width={34} />
                   EDGARBrowser
       </h1>
-      <form className={styles.SearchForm} ref={refform} onSubmit={e => {
+      <form className={styles.SearchForm} onSubmit={e => {
         e.preventDefault()
         e.stopPropagation()
+        submitSearch()
       }}>
         <label htmlFor="form-type">Type:</label>
         <select name="form-type" id="form-type" onChange={e => setFormtype(e.currentTarget.value)}>
