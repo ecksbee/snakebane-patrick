@@ -16,9 +16,6 @@ const Home: NextPage<Props> = ({} : Props) => {
   const [search, setSearch] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
   const [results, setResults] = React.useState([])
-  React.useEffect(() => {
-    setResults([])
-  }, [formType, search, year])
   const submitSearch = () => {
     if (!search || isLoading) {
       return
@@ -37,6 +34,22 @@ const Home: NextPage<Props> = ({} : Props) => {
       setIsLoading(false)
     })
   }
+  React.useEffect(() => {
+    if (isLoading) {
+      return
+    }
+    setResults([])
+  }, [search])
+  React.useEffect(() => {
+    if (isLoading) {
+      return
+    }
+    if (search) {
+      submitSearch()
+      return
+    }
+    setResults([])
+  }, [formType, year])
   return <>
     <div>
       <h1 className={styles.Brand}>
