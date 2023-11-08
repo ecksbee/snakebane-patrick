@@ -7,7 +7,6 @@ export default function Document() {
     <Head>
       <meta name="description" content={tagline} />
       <link rel="icon" href="/logo.png" />
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6317624671159516" crossOrigin="anonymous" />
     </Head>
       <body>
         <Main />
