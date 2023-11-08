@@ -1,29 +1,21 @@
 import React from 'react'
 import Router from 'next/router'
 import type { GetStaticProps, NextPage } from 'next'
-import path from 'path'
-import fs from 'fs'
-import markdown from '../lib/markdown'
 import Footer from '../components/Footer'
-import MdReader from '../components/MdReader'
 import logo from '../public/logo.png'
 import styles from '../styles/Home.module.css'
 
 type Props = {
-  content: any 
 }
 const currentYear = (new Date()).getFullYear()
 const range = (start: number, stop: number, step: number) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step))
 const myXBRLYears = range(2016, currentYear, 1)
-const Home: NextPage<Props> = ({content} : Props) => {
+const Home: NextPage<Props> = ({} : Props) => {
   const [year, setYear] = React.useState(`${currentYear}`)
   const [formType, setFormtype] = React.useState('8-k')
   const [search, setSearch] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
   const [results, setResults] = React.useState([])
-  React.useEffect(() => {
-    setResults([])
-  }, [formType, search, year])
   const submitSearch = () => {
     if (!search || isLoading) {
       return
@@ -42,6 +34,22 @@ const Home: NextPage<Props> = ({content} : Props) => {
       setIsLoading(false)
     })
   }
+  React.useEffect(() => {
+    if (isLoading) {
+      return
+    }
+    setResults([])
+  }, [search])
+  React.useEffect(() => {
+    if (isLoading) {
+      return
+    }
+    if (search) {
+      submitSearch()
+      return
+    }
+    setResults([])
+  }, [formType, year])
   return <>
     <div>
       <h1 className={styles.Brand}>
@@ -73,7 +81,7 @@ const Home: NextPage<Props> = ({content} : Props) => {
       </form>
       <>
         { isLoading && <div>loading...</div> }
-        { !isLoading && !results?.length && <div><p>No results.  Submit search parameters to run a search for XBRL filings in EDGAR.</p><hr /><MdReader content={content} /></div> }
+        { !isLoading && !results?.length && <div><p>No results.  Submit search parameters to run a search for XBRL filings in EDGAR.</p></div> }
         {
           !isLoading && results?.length > 0 && <>
             <div>
@@ -97,11 +105,8 @@ const Home: NextPage<Props> = ({content} : Props) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const filePath = path.join(process.cwd(), 'marketecture.md')
-  const content = await markdown(fs.readFileSync(filePath, 'utf8'))
   return {
     props: {
-      content 
     }
   }
 }
