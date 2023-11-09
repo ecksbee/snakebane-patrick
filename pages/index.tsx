@@ -1,16 +1,20 @@
 import React from 'react'
 import Router from 'next/router'
 import type { GetStaticProps, NextPage } from 'next'
+import Head from 'next/head'
+import path from 'path'
+import fs from 'fs'
 import Footer from '../components/Footer'
 import logo from '../public/logo.png'
 import styles from '../styles/Home.module.css'
 
 type Props = {
+  monetagBesttag: string
 }
 const currentYear = (new Date()).getFullYear()
 const range = (start: number, stop: number, step: number) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step))
 const myXBRLYears = range(2016, currentYear, 1)
-const Home: NextPage<Props> = ({} : Props) => {
+const Home: NextPage<Props> = ({monetagBesttag} : Props) => {
   const [year, setYear] = React.useState(`${currentYear}`)
   const [formType, setFormtype] = React.useState('8-k')
   const [search, setSearch] = React.useState('')
@@ -51,6 +55,9 @@ const Home: NextPage<Props> = ({} : Props) => {
     setResults([])
   }, [formType, year])
   return <>
+    <Head>
+      <script data-cfasync="false"  type="text/javascript" dangerouslySetInnerHTML={{__html: monetagBesttag}}/>
+    </Head>
     <div>
       <h1 className={styles.Brand}>
                   <img src={logo.src} style={{verticalAlign: 'bottom'}} alt="man postage stamp" height={47.5} width={34} />
@@ -105,8 +112,11 @@ const Home: NextPage<Props> = ({} : Props) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const filePath1 = path.join(process.cwd(), 'monetag-besttag.txt')
+  const monetagBesttag = fs.readFileSync(filePath1, 'utf8')
   return {
     props: {
+      monetagBesttag
     }
   }
 }
