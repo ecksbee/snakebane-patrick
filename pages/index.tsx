@@ -1,20 +1,23 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Router from 'next/router'
 import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import path from 'path'
 import fs from 'fs'
+import markdown from '../lib/markdown'
+import MdReader from '../components/MdReader'
 import Footer from '../components/Footer'
 import logo from '../public/logo.png'
 import styles from '../styles/Home.module.css'
 
 type Props = {
   monetagBesttag: string
+  adPolicy: string
 }
 const currentYear = (new Date()).getFullYear()
 const range = (start: number, stop: number, step: number) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step))
 const myXBRLYears = range(2016, currentYear, 1)
-const Home: NextPage<Props> = ({monetagBesttag} : Props) => {
+const Home: NextPage<Props> = ({monetagBesttag, adPolicy} : Props) => {
   const [year, setYear] = React.useState(`${currentYear}`)
   const [formType, setFormtype] = React.useState('8-k')
   const [search, setSearch] = React.useState('')
@@ -96,7 +99,14 @@ const Home: NextPage<Props> = ({monetagBesttag} : Props) => {
                 <ul className={styles.ResultList}>
                   {
                     results.map((i : any, n : number) => <li key={n} onClick={_ => 
-                      Router.push(`review?path=${i.PercentEncodedEdgarUrl}`)}>
+                      {
+                        if (window) {
+                          let popunder = window.open("http://kirteexe.tv/4/6580856", "s", "width= 460, height= 750, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no")
+                          popunder?.blur()
+                          window.focus()
+                        }
+                        Router.push(`review?path=${i.PercentEncodedEdgarUrl}`)}
+                      }>
                       <h3>{i.Title}</h3>
                       <p dangerouslySetInnerHTML={{__html:i.Summary}}/>
                     </li>)
@@ -107,6 +117,7 @@ const Home: NextPage<Props> = ({monetagBesttag} : Props) => {
         }
       </>
     </div>
+    <div className={styles.PolicyFont} dangerouslySetInnerHTML={{__html: adPolicy}} />
     <Footer short={false} />
   </>
 }
@@ -114,9 +125,12 @@ const Home: NextPage<Props> = ({monetagBesttag} : Props) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const filePath1 = path.join(process.cwd(), 'monetag-besttag.txt')
   const monetagBesttag = fs.readFileSync(filePath1, 'utf8')
+  const filePath2 = path.join(process.cwd(), 'ads_en.md')
+  const adPolicy = await markdown(fs.readFileSync(filePath2, 'utf8'))
   return {
     props: {
-      monetagBesttag
+      monetagBesttag,
+      adPolicy
     }
   }
 }

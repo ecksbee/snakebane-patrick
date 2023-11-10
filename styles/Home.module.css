@@ -17,3 +17,7 @@
   font-family: DejavuSansBoldItalic;
   cursor: pointer;
 }
+
+.PolicyFont {
+  font-size: 33%;
+}
