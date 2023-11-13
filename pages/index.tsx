@@ -87,11 +87,44 @@ const Home: NextPage<Props> = ({monetagBesttag, adPolicy} : Props) => {
           }
         </select>
         <label htmlFor="company-name">Name:</label>
-        <input type="text" id="company-name" name="company-name" onChange={e => setSearch(e.currentTarget.value)}/>
+        <input type="text" id="company-name" name="company-name" onChange={e => setSearch(e.currentTarget.value)} value={search}/>
       </form>
       <>
         { isLoading && <div>loading...</div> }
-        { !isLoading && !results?.length && <div><p>No results.  Submit search parameters to run a search for XBRL filings in EDGAR.</p></div> }
+        { !isLoading && !results?.length && <div><p>No results.  Submit search parameters to run a search for XBRL filings in EDGAR.</p>
+        <p>For starters, try searching for these: <a href='#' onClick={e => {
+          e.preventDefault()
+          if (isLoading) {
+            return
+          }
+          setFormtype('8-k')
+          setSearch('WORKIVA')
+          submitSearch()
+        }}>WORKIVA</a>, <a href='#' onClick={e => {
+          e.preventDefault()
+          if (isLoading) {
+            return
+          }
+          setFormtype('8-k')
+          setSearch('BROADRIDGE')
+          submitSearch()
+        }}>BROADRIDGE</a>, <a href='#' onClick={e => {
+          e.preventDefault()
+          if (isLoading) {
+            return
+          }
+          setFormtype('8-k')
+          setSearch('DONNELLEY')
+          submitSearch()
+        }}>DONNELLEY</a>, and <a href='#' onClick={e => {
+          e.preventDefault()
+          if (isLoading) {
+            return
+          }
+          setFormtype('8-k')
+          setSearch('ISSUER')
+          submitSearch()
+        }}>ISSUER</a>.</p></div> }
         {
           !isLoading && results?.length > 0 && <>
             <div>
