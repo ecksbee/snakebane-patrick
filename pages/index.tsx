@@ -23,14 +23,14 @@ const Home: NextPage<Props> = ({monetagBesttag, adPolicy} : Props) => {
   const [search, setSearch] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
   const [results, setResults] = React.useState([])
-  const submitSearch = () => {
-    if (!search || isLoading) {
+  const submitSearch = (selectedFormType: string, selectedYear: string, inputSearch: string) => {
+    if (!inputSearch || isLoading) {
       return
     }
     const formdata = new FormData()
-    formdata.append('form-type', formType)
-    formdata.append('year', year)
-    formdata.append('company-name', search)
+    formdata.append('form-type', selectedFormType)
+    formdata.append('year', selectedYear)
+    formdata.append('company-name', inputSearch)
     setIsLoading(true)
     fetch('/company-search',{
       method: 'POST',
@@ -52,7 +52,7 @@ const Home: NextPage<Props> = ({monetagBesttag, adPolicy} : Props) => {
       return
     }
     if (search) {
-      submitSearch()
+      submitSearch(formType, year, search)
       return
     }
     setResults([])
@@ -69,13 +69,14 @@ const Home: NextPage<Props> = ({monetagBesttag, adPolicy} : Props) => {
       <form className={styles.SearchForm} onSubmit={e => {
         e.preventDefault()
         e.stopPropagation()
-        submitSearch()
+        submitSearch(formType, year, search)
       }}>
         <label htmlFor="form-type">Type:</label>
         <select name="form-type" id="form-type" onChange={e => setFormtype(e.currentTarget.value)}>
           <option value="8-k">8K</option>
           <option value="10-k">10-K</option>
           <option value="10-q">10-Q</option>
+          <option value="20-f">20-F</option>
           {/* <option value="485bpos">485BPOS</option> */}
         </select>
         <label htmlFor="year">Year:</label>
@@ -97,33 +98,33 @@ const Home: NextPage<Props> = ({monetagBesttag, adPolicy} : Props) => {
           if (isLoading) {
             return
           }
-          setFormtype('8-k')
           setSearch('WORKIVA')
-          submitSearch()
+          setFormtype('8-k')
+          submitSearch('8-k', year, 'WORKIVA')
         }}>WORKIVA</a>, <a href='#' onClick={e => {
           e.preventDefault()
           if (isLoading) {
             return
           }
-          setFormtype('8-k')
           setSearch('BROADRIDGE')
-          submitSearch()
+          setFormtype('8-k')
+          submitSearch('8-k', year, 'BROADRIDGE')
         }}>BROADRIDGE</a>, <a href='#' onClick={e => {
           e.preventDefault()
           if (isLoading) {
             return
           }
-          setFormtype('8-k')
           setSearch('DONNELLEY')
-          submitSearch()
+          setFormtype('8-k')
+          submitSearch('8-k', year, 'DONNELLEY')
         }}>DONNELLEY</a>, and <a href='#' onClick={e => {
           e.preventDefault()
           if (isLoading) {
             return
           }
-          setFormtype('8-k')
           setSearch('ISSUER')
-          submitSearch()
+          setFormtype('8-k')
+          submitSearch('8-k', year, 'ISSUER')
         }}>ISSUER</a>.</p></div> }
         {
           !isLoading && results?.length > 0 && <>
