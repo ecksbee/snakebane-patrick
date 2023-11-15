@@ -6,6 +6,10 @@ export default function Document() {
     <Html lang="en">
     <Head>
       <meta name="description" content={tagline} />
+			<meta property='og:type' content='website' />
+			<meta property='og:title' content='EDGARBrowser' key='title' />
+			<meta property='og:description' content={tagline} key='description' />
+			<meta property='og:image' content='/logo.png' key='image' />
       <link rel="icon" href="/logo.png" />
     </Head>
       <body>
