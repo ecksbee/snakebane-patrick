@@ -1,11 +1,10 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import Router from 'next/router'
 import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import path from 'path'
 import fs from 'fs'
 import markdown from '../lib/markdown'
-import MdReader from '../components/MdReader'
 import Footer from '../components/Footer'
 import logo from '../public/logo.png'
 import styles from '../styles/Home.module.css'
@@ -77,7 +76,7 @@ const Home: NextPage<Props> = ({monetagBesttag, adPolicy} : Props) => {
           <option value="10-k">10-K</option>
           <option value="10-q">10-Q</option>
           <option value="20-f">20-F</option>
-          {/* <option value="485bpos">485BPOS</option> */}
+          <option value="485bpos">485BPOS</option>
         </select>
         <label htmlFor="year">Year:</label>
         <select name="year" id="year" defaultValue={currentYear} onChange={e => setYear(e.currentTarget.value)}>
