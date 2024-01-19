@@ -57,9 +57,9 @@ const Home: NextPage<Props> = ({monetagBesttag, adPolicy} : Props) => {
     setResults([])
   }, [formType, year])
   return <>
-    <Head>
+    {/* <Head> //todo no ads
       <script data-cfasync="false"  type="text/javascript" dangerouslySetInnerHTML={{__html: monetagBesttag}}/>
-    </Head>
+    </Head> */}
     <div>
       <h1 className={styles.Brand}>
                   <img src={logo.src} style={{verticalAlign: 'bottom'}} alt="man postage stamp" height={47.5} width={34} />
@@ -133,11 +133,11 @@ const Home: NextPage<Props> = ({monetagBesttag, adPolicy} : Props) => {
                   {
                     results.map((i : any, n : number) => <li key={n} onClick={_ => 
                       {
-                        if (window) {
-                          let popunder = window.open("http://kirteexe.tv/4/6580856", "s", "width= 460, height= 750, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no")
-                          popunder?.blur()
-                          window.focus()
-                        }
+                        // if (window) { //todo no ads
+                        //   let popunder = window.open("http://kirteexe.tv/4/6580856", "s", "width= 460, height= 750, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no")
+                        //   popunder?.blur()
+                        //   window.focus()
+                        // }
                         Router.push(`review?path=${i.PercentEncodedEdgarUrl}`)}
                       }>
                       <h3>{i.Title}</h3>
@@ -150,7 +150,7 @@ const Home: NextPage<Props> = ({monetagBesttag, adPolicy} : Props) => {
         }
       </>
     </div>
-    <div className={styles.PolicyFont} dangerouslySetInnerHTML={{__html: adPolicy}} />
+    {/* <div className={styles.PolicyFont} dangerouslySetInnerHTML={{__html: adPolicy}} /> //todo no ads */}
     <Footer short={false} />
   </>
 }
